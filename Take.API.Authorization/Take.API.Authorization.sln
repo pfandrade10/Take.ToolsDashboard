@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Take.API.Authorization", "Take.API.Authorization\Take.API.Authorization.csproj", "{68A22169-2E14-469C-8BB1-8E82542029C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68A22169-2E14-469C-8BB1-8E82542029C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A22169-2E14-469C-8BB1-8E82542029C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A22169-2E14-469C-8BB1-8E82542029C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A22169-2E14-469C-8BB1-8E82542029C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {757D2446-1CE0-4758-9B52-AD9F2BC56404}
+	EndGlobalSection
+EndGlobal

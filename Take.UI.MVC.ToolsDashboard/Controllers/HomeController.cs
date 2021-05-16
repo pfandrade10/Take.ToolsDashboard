@@ -27,9 +27,6 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 if (!User.Identity.IsAuthenticated)
                     return RedirectToAction("Index", "Auth");
 
-
-
-
                 return View();
             }
             catch (Exception e)

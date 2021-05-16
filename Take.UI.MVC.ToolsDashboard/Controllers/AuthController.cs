@@ -27,8 +27,10 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         }
         public IActionResult Index(string returnUrl = "/")
         {
-            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
+            if(!User.Identity.IsAuthenticated)
+                return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
 
+            return RedirectToAction("Index", "Home");
             //if (User.Identity.IsAuthenticated)
             //    return RedirectToAction("Index", "Home");
             //return View();

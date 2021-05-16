@@ -10,5 +10,7 @@ namespace Take.UI.MVC.ToolsDashboard
         public string githubKey { get; set; }
 
         public string githubSecretKey { get; set; }
+
+        public string connectionString { get; set; }
     }
 }

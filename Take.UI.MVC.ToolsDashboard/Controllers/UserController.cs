@@ -37,7 +37,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    List<User> model = JsonConvert.DeserializeObject<List<User>>(responseString);
+                    List<UserModel> model = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
                     ViewBag.listUserModelmeucheckin = model;
 
                     return View();
@@ -52,8 +52,12 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+            UserModel user = new UserModel();
+
             try
             {
+
+                
                 using (var client = new HttpClient())
                 {
                     var response = await client.GetAsync(_endpoints.ServiceUser + $"User/idUser/{id}");
@@ -66,7 +70,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    User model = JsonConvert.DeserializeObject<User>(responseString);
+                    UserModel model = JsonConvert.DeserializeObject<UserModel>(responseString);
                     ViewBag.UserMeucheckin = model;
 
                     return View(model);

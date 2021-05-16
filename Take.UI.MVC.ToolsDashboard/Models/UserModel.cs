@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Take.UI.MVC.ToolsDashboard.Models
 {
-    public class User
+    public class UserModel
     {
         [Display(Name = "ID de usuário")]
         public int idUser { get; set; }

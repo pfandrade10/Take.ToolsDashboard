@@ -45,6 +45,7 @@ namespace Take.UI.MVC.ToolsDashboard
             {
                 appSettings.githubKey = Configuration[$"GitHub:ClientId"];
                 appSettings.githubSecretKey = Configuration[$"GitHub:ClientSecret"];
+                appSettings.connectionString = Configuration[$"ConnectionString"];
             });
 
             services.AddAuthentication(options =>

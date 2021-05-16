@@ -34,7 +34,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Index(User userModelAdm)
+        public async Task<IActionResult> Index(UserModel userModelAdm)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    var model = JsonConvert.DeserializeObject<User>(responseString);
+                    var model = JsonConvert.DeserializeObject<UserModel>(responseString);
 
                     // User Login
                     Login(model.name, model.idUser);

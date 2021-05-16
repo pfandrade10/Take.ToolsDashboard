@@ -33,6 +33,7 @@
             <p aria-haspopup="true" aria-expanded="false">Bem vindo, @ViewBag.userName</p>
             <a asp-area="" id="link-menu-home" asp-controller="Home" asp-action="Index">Página Inicial</a>
             <a asp-area="" id="link-menu-user" asp-controller="User" asp-action="Index">Usuários</a>
+            <a asp-area="" id="link-menu-tool" asp-controller="Tool" asp-action="Index">Ferramentas</a>
 
             <form asp-action="Logout" asp-controller="Auth" id="form-logout">
                 @Html.AntiForgeryToken()

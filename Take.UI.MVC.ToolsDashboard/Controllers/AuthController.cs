@@ -25,19 +25,22 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             _endpoints = endpoints.Value;
 
         }
-        public IActionResult Index()
+        public IActionResult Index(string returnUrl = "/")
         {
-            if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
-            return View();
+            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
+
+            //if (User.Identity.IsAuthenticated)
+            //    return RedirectToAction("Index", "Home");
+            //return View();
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Index(UserModel userModelAdm)
+        public async Task<IActionResult> Index(User userModelAdm)
         {
             try
             {
+
                 using (var client = new HttpClient())
                 {
                     var response = await client.GetAsync(_endpoints.ServiceUserAdm + $"Authentication/email/{userModelAdm.email}/password/{userModelAdm.password}");
@@ -50,7 +53,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    var model = JsonConvert.DeserializeObject<UserModel>(responseString);
+                    var model = JsonConvert.DeserializeObject<User>(responseString);
 
                     // User Login
                     Login(model.name, model.idUser);

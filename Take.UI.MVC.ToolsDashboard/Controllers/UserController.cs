@@ -37,7 +37,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    List<UserModel> model = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
+                    List<User> model = JsonConvert.DeserializeObject<List<User>>(responseString);
                     ViewBag.listUserModelmeucheckin = model;
 
                     return View();
@@ -45,8 +45,8 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
             catch (Exception e)
             {
-                ShowNotification(NotificationType.Error, e.Message);
-                return View();
+                ShowNotificationRedirect(NotificationType.Error, e.Message);
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -66,7 +66,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    UserModel model = JsonConvert.DeserializeObject<UserModel>(responseString);
+                    User model = JsonConvert.DeserializeObject<User>(responseString);
                     ViewBag.UserMeucheckin = model;
 
                     return View(model);

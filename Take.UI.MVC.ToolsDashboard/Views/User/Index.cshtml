@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Take.UI.MVC.ToolsDashboard.Models.UserModel>
+﻿@model IEnumerable<Take.UI.MVC.ToolsDashboard.Models.User>
 @{
     ViewData["Title"] = "Usuários";
 }
@@ -26,7 +26,7 @@
     </thead>
 
     <tbody>
-        @foreach (var item in ViewBag.listUserModelmeucheckin as List<Take.UI.MVC.ToolsDashboard.Models.UserModel>)
+        @foreach (var item in ViewBag.listUserModelmeucheckin as List<Take.UI.MVC.ToolsDashboard.Models.User>)
         {
             <tr>
                 <td>

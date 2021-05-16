@@ -8,17 +8,35 @@ namespace Take.UI.MVC.ToolsDashboard.Models
 {
     public class UserModel
     {
-        [Key]
+        [Display(Name = "ID de usuário")]
         public int idUser { get; set; }
 
-        [Required]
+        public string keyFacebook { get; set; }
+
+        [Display(Name = "E-mail")]
         public string email { get; set; }
 
-        [Required]
         public string password { get; set; }
-        
-        [Required]
+
+        [Display(Name = "Nome")]
         public string name { get; set; }
+
+        public string lastName { get; set; }
+
+        public string ddiCellNumber { get; set; }
+
+        [Display(Name = "Telefone")]
+        public string cellNumber { get; set; }
+
+        public string address { get; set; }
+
+        public string city { get; set; }
+
+        public string country { get; set; }
+
+        public string cpf { get; set; }
+
+        public string postalCode { get; set; }
 
         public DateTime dateTimeInclusion { get; set; }
     }

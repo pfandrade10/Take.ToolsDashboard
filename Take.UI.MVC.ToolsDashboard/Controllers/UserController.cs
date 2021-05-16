@@ -37,7 +37,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    List<UserModelMeucheckin> model = JsonConvert.DeserializeObject<List<UserModelMeucheckin>>(responseString);
+                    List<UserModel> model = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
                     ViewBag.listUserModelmeucheckin = model;
 
                     return View();
@@ -66,7 +66,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    UserModelMeucheckin model = JsonConvert.DeserializeObject<UserModelMeucheckin>(responseString);
+                    UserModel model = JsonConvert.DeserializeObject<UserModel>(responseString);
                     ViewBag.UserMeucheckin = model;
 
                     return View(model);

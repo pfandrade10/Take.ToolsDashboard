@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Take.UI.MVC.ToolsDashboard.Controllers
 {
-    [Authorize]
+    
     public class HomeController : BaseController
     {
-        private readonly Endpoints _endpoints;
+        private readonly AppSettings _appSettings;
 
-        public HomeController(IOptions<Endpoints> endpoints)
+        public HomeController(IOptions<AppSettings> appSettings)
         {
-            _endpoints = endpoints.Value;
+            _appSettings = appSettings.Value;
 
         }
 

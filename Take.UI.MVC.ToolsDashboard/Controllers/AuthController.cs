@@ -86,7 +86,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
             };
 
-            var userIdentity = new ClaimsIdentity(claims, "MeucheckinAdministrator");
+            var userIdentity = new ClaimsIdentity(claims, "TakeDashboard");
 
             var userPrincipal = new ClaimsPrincipal(userIdentity);
 

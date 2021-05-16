@@ -3,8 +3,8 @@
     "comment" : "This file is used to help set default values when using the dotnet CLI extension Amazon.ElasticBeanstalk.Tools. For more information run \"dotnet eb --help\" from the project root.",
     "profile" : "New AWS",
     "region"  : "us-east-1",
-    "application" : "Meu Checkin ADM",
-    "environment" : "mc-prod-front-adm",
+    "application" : "Take Tools Dashboard",
+    "environment" : "take-tools-dashboard",
     "iis-website" : "Default Web Site",
     "app-path"    : "/",
     "enable-xray" : false

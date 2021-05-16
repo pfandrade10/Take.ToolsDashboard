@@ -25,8 +25,8 @@ pipelines:
                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                    AWS_DEFAULT_REGION: 'us-east-1'
                    S3_BUCKET: 'elasticbeanstalk-us-east-1-929657152259'
-                   APPLICATION_NAME: 'Meu Checkin ADM'
-                   ENVIRONMENT_NAME: 'mc-develop-front-adm'
+                   APPLICATION_NAME: 'Take Tools Dashboard'
+                   ENVIRONMENT_NAME: 'take-tools-dashboard'
                    ZIP_FILE: 'adm.zip'
       master:
         - step:
@@ -51,6 +51,6 @@ pipelines:
                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                    AWS_DEFAULT_REGION: 'us-east-1'
                    S3_BUCKET: 'elasticbeanstalk-us-east-1-929657152259'
-                   APPLICATION_NAME: 'Meu Checkin ADM'
-                   ENVIRONMENT_NAME: 'mc-prod-front-adm'
+                   APPLICATION_NAME: 'Take Tools Dashboard'
+                   ENVIRONMENT_NAME: 'take-tools-dashboard'
                    ZIP_FILE: 'adm.zip'

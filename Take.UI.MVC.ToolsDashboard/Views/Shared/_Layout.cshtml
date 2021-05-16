@@ -1,48 +1,159 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Take.UI.MVC.ToolsDashboard</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewData["Title"] - Meu Check-in</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <environment exclude="Development">
+        @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <script src="https://kit.fontawesome.com/051b94e4f5.js"></script>
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Take.UI.MVC.ToolsDashboard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ1sE5TFRZZVHNeTD-Cc286kcHj3yFKJc&libraries=places"></script>
+
+    @if (ViewBag.ShowHeader != false)
+    {
+        <div class="navbar-sidebar" id="sidenav">
+            <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/meucheckin-white-logo.png" style="width: 120px;" /></a>
+            <p aria-haspopup="true" aria-expanded="false">Bem vindo, @ViewBag.userName</p>
+            <a asp-area="" id="link-menu-home" asp-controller="Home" asp-action="Index">Página Inicial</a>
+            <a asp-area="" id="link-menu-user" asp-controller="User" asp-action="Index">Usuários</a>
+
+            <form asp-action="Logout" asp-controller="Auth" id="form-logout">
+                @Html.AntiForgeryToken()
+                <a onclick="javascript: document.getElementById('form-logout').submit()"><span class="fas fa-sign-out-alt"></span> Sair</a>
+            </form>
+        </div>
+    }
+
+    <div class="@(ViewBag.ShowHeader != false? "container body-content" : "")">
+
+        @if (@ViewData["Title"] != null)
+        {
+            <div class="title-header">
+                <h4>@ViewData["Title"]</h4>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        }
+
+        @RenderBody()
+
+        @if (ViewBag.ShowFooter != false)
+        {
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Meu Check-in</p>
+            </footer>
+        }
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Take.UI.MVC.ToolsDashboard - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", { packages: ["corechart"] });
+        </script>
+    </environment>
+    <environment exclude="Development">
+        @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+            <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>*@
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", { packages: ["corechart"] });
+        </script>
+    </environment>
+
     @RenderSection("Scripts", required: false)
+
+    @if (ViewData["Notification"] != null)
+    {
+        var notification = ViewData["Notification"] as Take.UI.MVC.ToolsDashboard.Notification;
+
+        <script type="text/javascript">
+
+            @if (notification.NotificationType == Take.UI.MVC.ToolsDashboard.NotificationType.Error)
+            {
+                @Html.Raw("ShowNotification('error', '" + notification.Texto + "', "+ notification.Segundos + ");");
+            }
+            else if (notification.NotificationType == Take.UI.MVC.ToolsDashboard.NotificationType.Success)
+            {
+                @Html.Raw("ShowNotification('success', '" + notification.Texto + "', " + notification.Segundos + ");");
+            }
+            else
+            {
+                @Html.Raw("ShowNotification('', '" + notification.Texto + "', " + notification.Segundos + ");");
+            }
+        </script>
+    }
+
+    @if (TempData["NotificationSuccessRedirect"] != null)
+    {
+        var notification = TempData["NotificationSuccessRedirect"] as string;
+
+        <script type="text/javascript">
+            @Html.Raw("ShowNotification('success', '" + notification + "');");
+        </script>
+    }
+    else if (TempData["NotificationErrorRedirect"] != null)
+    {
+        var notification = TempData["NotificationErrorRedirect"] as string;
+
+        <script type="text/javascript">
+            @Html.Raw("ShowNotification('error', '" + notification + "');");
+        </script>
+    }
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
 </body>
 </html>

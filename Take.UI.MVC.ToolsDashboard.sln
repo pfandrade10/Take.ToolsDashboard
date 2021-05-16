@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Take.UI.MVC.ToolsDashboard", "Take.UI.MVC.ToolsDashboard\Take.UI.MVC.ToolsDashboard.csproj", "{939E045E-8189-438F-B921-730256AFB33D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Take.UI.MVC.ToolsDashboard", "Take.UI.MVC.ToolsDashboard\Take.UI.MVC.ToolsDashboard.csproj", "{850B7D32-30F7-48E2-930B-194DEE6F0699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{939E045E-8189-438F-B921-730256AFB33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{939E045E-8189-438F-B921-730256AFB33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{939E045E-8189-438F-B921-730256AFB33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{939E045E-8189-438F-B921-730256AFB33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{850B7D32-30F7-48E2-930B-194DEE6F0699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850B7D32-30F7-48E2-930B-194DEE6F0699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850B7D32-30F7-48E2-930B-194DEE6F0699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850B7D32-30F7-48E2-930B-194DEE6F0699}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B48E929A-E6F4-4B6E-A9D6-3790BA7D4D50}
+		SolutionGuid = {A76F9596-545F-4774-8857-FC6399A7E1E0}
 	EndGlobalSection
 EndGlobal

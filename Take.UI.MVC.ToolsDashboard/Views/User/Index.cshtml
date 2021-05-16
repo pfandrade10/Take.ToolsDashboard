@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Take.UI.MVC.ToolsDashboard.Models.UserModelMeucheckin>
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Detalhes
+            </th>
+            <th>
+                ID Usuário
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                Telefone
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in ViewBag.listUserModelmeucheckin as List<Take.UI.MVC.ToolsDashboard.Models.UserModelMeucheckin>)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.idUser"><span class="fas fa-user"></span></a>
+                </td>
+                <td>
+                    @item.idUser
+                </td>
+                <td>
+                    @item.name @item.lastName
+                </td>
+                <td>
+                    @item.email
+                </td>
+                <td>
+                    @item.cellNumber
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-dark">
+        <span class="fas fa-arrow-left"></span> Voltar
+    </a>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        //Setando menu como ativo
+        SetActiveLink("#link-menu-user");
+
+    </script>
+}

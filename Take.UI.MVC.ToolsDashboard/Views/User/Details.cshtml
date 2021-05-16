@@ -1,0 +1,187 @@
+﻿@model Take.UI.MVC.ToolsDashboard.Models.UserModelMeucheckin
+@{
+    ViewData["Title"] = $"Detalhes do Usuário #{Model.idUser}";
+}
+
+<div>
+    <table>
+        <tbody>
+            <tr class="dl-horizontal">
+
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>ID do Usuário</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.idUser
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Nome</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.name
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Sobrenome</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.lastName
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>CPF</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.cpf
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>E-mail</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.email
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>DDI Telefone</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.ddiCellNumber
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Telefone</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.cellNumber
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Chave Facebook</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.keyFacebook
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Endereço</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.address
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Cidade</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.city
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>País</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.country
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Código Postal</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.postalCode
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>
+                            Data de Inclusão
+                        </label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.dateTimeInclusion.ToString("dd/MM/yyyy")
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<br />
+
+<div>
+    <a asp-action="Index" asp-controller="User" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        //Setando menu como ativo
+        SetActiveLink("#link-menu-user");
+
+    </script>
+}
+
+

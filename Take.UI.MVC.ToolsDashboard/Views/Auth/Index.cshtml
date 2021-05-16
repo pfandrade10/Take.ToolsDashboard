@@ -1,0 +1,24 @@
+﻿@model Take.UI.MVC.ToolsDashboard.Models.UserModel
+@{
+    ViewBag.ShowHeader = false;
+    ViewBag.ShowFooter = false;
+}
+<div class="auth-container body-container">
+    <div class="text-center">
+        <div class="shadow-box">
+            <form asp-action="Index" method="post" asp-antiforgery="true">
+                <img src="~/images/meucheckin-logo.png" class="img-responsive blocktext" width="200" height="70"/>
+                <p></p>
+                <div class="form-group">
+                    <input asp-for="email" type="email" placeholder="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input asp-for="password" type="password" placeholder="Senha" class="form-control" />
+                </div>
+                <div>
+                    <button type="submit" class="btn  btn-outline-dark">Log in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

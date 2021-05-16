@@ -1,0 +1,56 @@
+image: microsoft/dotnet:sdk
+
+pipelines:
+  branches:
+      develop:
+        - step:
+            caches:
+              - dotnetcore
+            name: Build app
+            script: # The script below will build the application.
+              - apt-get update && apt-get -y install zip
+              - dotnet restore
+              - dotnet publish -c Debug -o adm
+              - cd Front.Adm/adm
+              - zip -r ../../adm.zip *
+            artifacts:
+              - adm.zip
+        - step:
+              name: Deploy app
+              deployment: test
+              script:
+                - pipe: atlassian/aws-elasticbeanstalk-deploy:0.5.2
+                  variables:
+                   AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                   AWS_DEFAULT_REGION: 'us-east-1'
+                   S3_BUCKET: 'elasticbeanstalk-us-east-1-929657152259'
+                   APPLICATION_NAME: 'Meu Checkin ADM'
+                   ENVIRONMENT_NAME: 'mc-develop-front-adm'
+                   ZIP_FILE: 'adm.zip'
+      master:
+        - step:
+            caches:
+              - dotnetcore
+            name: Build app
+            script: # The script below will build the application.
+              - apt-get update && apt-get -y install zip
+              - dotnet restore
+              - dotnet publish -c Release -o adm
+              - cd Front.Adm/adm
+              - zip -r ../../adm.zip *
+            artifacts:
+              - adm.zip
+        - step:
+              name: Deploy app
+              deployment: production
+              script:
+                - pipe: atlassian/aws-elasticbeanstalk-deploy:0.5.2
+                  variables:
+                   AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                   AWS_DEFAULT_REGION: 'us-east-1'
+                   S3_BUCKET: 'elasticbeanstalk-us-east-1-929657152259'
+                   APPLICATION_NAME: 'Meu Checkin ADM'
+                   ENVIRONMENT_NAME: 'mc-prod-front-adm'
+                   ZIP_FILE: 'adm.zip'

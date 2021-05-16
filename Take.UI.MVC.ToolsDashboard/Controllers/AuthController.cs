@@ -25,15 +25,11 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             _endpoints = endpoints.Value;
 
         }
-        public IActionResult Index(string returnUrl = "/")
+        public IActionResult Index()
         {
-            if(!User.Identity.IsAuthenticated)
-                return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
-
-            return RedirectToAction("Index", "Home");
-            //if (User.Identity.IsAuthenticated)
-            //    return RedirectToAction("Index", "Home");
-            //return View();
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpPost]
@@ -42,6 +38,9 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         {
             try
             {
+
+                if (!User.Identity.IsAuthenticated)
+                    return Challenge(new AuthenticationProperties() { RedirectUri = "/" });
 
                 using (var client = new HttpClient())
                 {

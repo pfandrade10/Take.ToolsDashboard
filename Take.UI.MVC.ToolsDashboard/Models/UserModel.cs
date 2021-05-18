@@ -8,6 +8,7 @@ namespace Take.UI.MVC.ToolsDashboard.Models
 {
     public class UserModel
     {
+        [Key]
         [Display(Name = "ID de usuário")]
         public int idUser { get; set; }
 

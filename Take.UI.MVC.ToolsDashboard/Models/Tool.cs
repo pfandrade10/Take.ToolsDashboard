@@ -18,5 +18,7 @@ namespace Take.UI.MVC.ToolsDashboard.Models
         public string link { get; set; }
 
         public DateTime dateTimeInclusion { get; set; }
+
+        public bool isDeleted { get; set; }
     }
 }

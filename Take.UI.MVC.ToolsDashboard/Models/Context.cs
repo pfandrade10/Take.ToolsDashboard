@@ -30,7 +30,7 @@ namespace Take.UI.MVC.ToolsDashboard.Models
         {
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
 
-            optionsBuilder.UseMySql(connectionString);
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
             //Ensure database creation
             var context = new Context(optionsBuilder.Options);

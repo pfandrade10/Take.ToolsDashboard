@@ -13,74 +13,87 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
     public class UserController : BaseController
     {
 
-        private readonly Endpoints _endpoints;
+        private readonly AppSettings _appSettings;
 
-        public UserController(IOptions<Endpoints> endpoints)
+        public UserController(IOptions<AppSettings> appSettings)
         {
-            _endpoints = endpoints.Value;
+            _appSettings = appSettings.Value;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public IActionResult Index()
         {
+            Models.User model = new Models.User();
+
+            using (var bank = ContextFactory.Create(_appSettings.connectionString))
+            {
+                var query = (from user in bank.User
+                             where user.isDeleted == false
+                             select user).AsQueryable();
+
+                ViewBag.listUser = query.ToList();
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int idUser)
+        {
+            Models.User model = new Models.User();
 
             try
             {
-                using (var client = new HttpClient())
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
-                    var response = await client.GetAsync(_endpoints.ServiceUser + $"User");
+                    var query = (from user in bank.User
+                                 where user.idUser == idUser
+                                 select user).SingleOrDefault();
 
-                    // If Successful
-                    var responseString = await response.Content.ReadAsStringAsync();
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new Exception(responseString);
-                    }
-
-                    List<UserModel> model = JsonConvert.DeserializeObject<List<UserModel>>(responseString);
-                    ViewBag.listUserModelmeucheckin = model;
-
-                    return View();
+                    model = query;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ShowNotificationRedirect(NotificationType.Error, e.Message);
-                return RedirectToAction("Index", "Home");
+                ShowNotificationRedirect(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
+                return RedirectToAction("Index", "User");
             }
+
+            return View(model);
         }
 
-        public async Task<IActionResult> Details(int id)
+
+        [HttpGet]
+        public IActionResult Excluir(int idUser)
         {
-            UserModel user = new UserModel();
+            Models.User model = new Models.User();
 
             try
             {
-
-                
-                using (var client = new HttpClient())
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
-                    var response = await client.GetAsync(_endpoints.ServiceUser + $"User/idUser/{id}");
+                    var query = (from user in bank.User
+                                 where user.idUser == idUser
+                                 select user).SingleOrDefault();
 
-                    // If Successful
-                    var responseString = await response.Content.ReadAsStringAsync();
 
-                    if (!response.IsSuccessStatusCode)
+                    if (query == null)
                     {
-                        throw new Exception(responseString);
+                        ShowNotification(NotificationType.Error, $"Usuário a ser deletado não exite",1);
+                        return View(model);
                     }
 
-                    UserModel model = JsonConvert.DeserializeObject<UserModel>(responseString);
-                    ViewBag.UserMeucheckin = model;
-
-                    return View(model);
+                    query.isDeleted = true;
+                    bank.SaveChanges();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ShowNotification(NotificationType.Error, e.Message);
-                return View();
+                ShowNotificationRedirect(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
+                return RedirectToAction("Index", "User");
             }
+
+            return View(model);
         }
     }
 }

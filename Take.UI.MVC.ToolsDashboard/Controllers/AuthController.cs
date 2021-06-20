@@ -34,7 +34,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Index(UserModel userModelAdm)
+        public async Task<IActionResult> Index(User userModelAdm)
         {
             try
             {
@@ -54,10 +54,10 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         throw new Exception(responseString);
                     }
 
-                    var model = JsonConvert.DeserializeObject<UserModel>(responseString);
+                    var model = JsonConvert.DeserializeObject<User>(responseString);
 
                     // User Login
-                    Login(model.name, model.idUser);
+                    Login(model.userName, model.idUser);
 
                     // Return Success
                     return RedirectToAction("Index", "Home");

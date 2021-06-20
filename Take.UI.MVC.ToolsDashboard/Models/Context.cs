@@ -14,7 +14,7 @@ namespace Take.UI.MVC.ToolsDashboard.Models
 
         }
 
-        public DbSet<UserModel> User { get; set; }
+        public DbSet<Models.User> User { get; set; }
         public DbSet<Tool> Tool { get; set; }
 
 

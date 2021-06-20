@@ -69,24 +69,16 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 {
                     var query = (from tool in bank.Tool
                                  where tool.idTool == idTool
-                                 select new
-                                 {
-                                     idTool = tool.idTool,
-                                     name = tool.name,
-                                     description = tool.description,
-                                     link = tool.link,
-                                     dateTimeInclusion = tool.dateTimeInclusion,
-                                 }).SingleOrDefault();
+                                 select tool).SingleOrDefault();
 
                     
-                    if(query != null)
+                    if(query == null)
                     {
-                        model.idTool = query.idTool;
-                        model.name = query.name;
-                        model.description = query.description;
-                        model.link = query.link;
-                        model.dateTimeInclusion = query.dateTimeInclusion;
+                        ShowNotificationRedirect(NotificationType.Error, $"Ferramenta procurada não existe");
+                        return RedirectToAction("Index", "Tool");
                     }
+
+                    model = query;
                 }
             }
             catch(Exception ex)
@@ -110,27 +102,16 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 {
                     var query = (from tool in bank.Tool
                                  where tool.idTool == idTool
-                                 select new
-                                 {
-                                     idTool = tool.idTool,
-                                     name = tool.name,
-                                     description = tool.description,
-                                     link = tool.link,
-                                     dateTimeInclusion = tool.dateTimeInclusion,
-                                 }).SingleOrDefault();
+                                 select tool).SingleOrDefault();
 
 
                     if (query != null)
                     {
-                        model.idTool = query.idTool;
-                        model.name = query.name;
-                        model.description = query.description;
-                        model.link = query.link;
-                        model.dateTimeInclusion = query.dateTimeInclusion;
-                        model.isDeleted = true;
+                        ShowNotificationRedirect(NotificationType.Error, $"Ferramenta procurada não existe");
+                        return RedirectToAction("Index", "Tool");
                     }
 
-                    bank.Tool.Add(model);
+                    query.isDeleted = true;
                     bank.SaveChanges();
                 }
             }

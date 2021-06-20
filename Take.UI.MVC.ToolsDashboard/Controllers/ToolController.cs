@@ -27,36 +27,32 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             {
                 var query = (from tool in bank.Tool
                              where tool.isDeleted == false
-                             select new
-                             {
-                                 idTool = tool.idTool,
-                                 name = tool.name,
-                                 description = tool.description,
-                                 link = tool.link,
-                                 dateTimeInclusion = tool.dateTimeInclusion,
-                             }).ToList();
+                             select tool).AsQueryable();
 
-                List<Tool> tools = new List<Tool>();
-
-                foreach(var item in query)
-                {
-                    Tool tool = new Tool();
-
-                    tool.idTool = item.idTool;
-                    tool.name = item.name;
-                    tool.description = item.description;
-                    tool.link = item.link;
-                    tool.dateTimeInclusion = item.dateTimeInclusion;
-
-                    tools.Add(tool);
-                }
-
-                ViewBag.listTools = tools;
+                ViewBag.listTools = query.ToList();
             }
 
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Index(string searchText)
+        {
+            Tool model = new Tool();
+
+            using (var bank = ContextFactory.Create(_appSettings.connectionString))
+            {
+                var query = (from tool in bank.Tool
+                             where tool.isDeleted == false
+                             && (!string.IsNullOrEmpty(searchText) ? (tool.name.Contains(searchText) 
+                             || tool.description.Contains(searchText)) : true)
+                             select tool).AsQueryable();              
+
+                ViewBag.listTools = query.ToList();
+            }
+
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult Details(int idTool)

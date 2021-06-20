@@ -26,6 +26,8 @@ namespace Take.UI.MVC.ToolsDashboard.Models
 
         public bool isMaster { get; set; }
 
+        public bool isActive { get; set; }
+
         public bool isDeleted { get; set; }
 
         public DateTime dateTimeInclusion { get; set; }

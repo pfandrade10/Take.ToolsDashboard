@@ -37,6 +37,28 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Index(string searchText, bool? isActive = null)
+        {
+            Models.User model = new Models.User();
+
+            using (var bank = ContextFactory.Create(_appSettings.connectionString))
+            {
+                var query = (from user in bank.User
+                             where user.isDeleted == false
+                             && (!string.IsNullOrEmpty(searchText) ? 
+                             (user.userName.Contains(searchText) || user.email.Contains(searchText)) : true) 
+                             select user).AsQueryable();
+
+                if (isActive != null)
+                    query = query.Where(x => x.isActive == isActive);
+
+                ViewBag.listUser = query.ToList();
+            }
+
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult Details(int idUser)
         {

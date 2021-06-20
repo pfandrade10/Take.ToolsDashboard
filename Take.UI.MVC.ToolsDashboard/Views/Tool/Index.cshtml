@@ -1,6 +1,21 @@
 ﻿@model Take.UI.MVC.ToolsDashboard.Models.Tool
 @{ ViewData["Title"] = "Ferramentas"; }
 
+<form asp-action="Index" method="post" asp-antiforgery="true">
+    <div class="form-group">
+        <input name="searchText"  placeholder="Pesquisar" class="form-control" />
+    </div>
+    <div>
+        <button type="submit" class="btn  btn-outline-dark">Pesquisar</button>
+    </div>
+</form>
+
+<card>
+    <div>
+        teste
+    </div>
+</card>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>

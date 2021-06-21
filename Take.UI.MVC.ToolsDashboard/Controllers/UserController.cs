@@ -60,7 +60,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(int idUser)
+        public IActionResult Details(int id)
         {
             Models.User model = new Models.User();
 
@@ -69,7 +69,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from user in bank.User
-                                 where user.idUser == idUser
+                                 where user.idUser == id
                                  select user).SingleOrDefault();
 
                     model = query;
@@ -86,7 +86,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
 
         [HttpGet]
-        public IActionResult Excluir(int idUser)
+        public IActionResult Excluir(int id)
         {
             Models.User model = new Models.User();
 
@@ -95,7 +95,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from user in bank.User
-                                 where user.idUser == idUser
+                                 where user.idUser == id
                                  select user).SingleOrDefault();
 
 

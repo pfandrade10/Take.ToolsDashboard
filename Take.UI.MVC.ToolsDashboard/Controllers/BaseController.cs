@@ -38,7 +38,13 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 Claim claimNameIdentifier = claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier);
                 idUserADM = Convert.ToInt32(claimNameIdentifier.Value);
 
-                Claim claimName = claimsIdentity?.FindFirst("urn:github:login");
+                Claim claimName = null;
+
+                if (claimsIdentity?.FindFirst("urn:github:login") == null)
+                    claimName = claimsIdentity?.FindFirst(ClaimTypes.Name);
+                else
+                    claimName = claimsIdentity?.FindFirst("urn:github:login");
+
                 userNameADM = claimName.Value;
                 ViewBag.userName = userNameADM;
             }

@@ -10,10 +10,10 @@ namespace Take.UI.MVC.ToolsDashboard
 {
     public class Util
     {
-        private Endpoints _endpoints;
-        public Util(Endpoints endpoints)
+        private AppSettings _appSettings;
+        public Util(AppSettings appSettings)
         {
-            _endpoints = endpoints;
+            _appSettings = appSettings;
         }      
     }
 }

@@ -12,19 +12,21 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Take.UI.MVC.ToolsDashboard.Request;
 
 namespace Take.UI.MVC.ToolsDashboard.Controllers
 {
     
     public class AuthController : BaseController
     {
-        private readonly Endpoints _endpoints;
 
-        public AuthController(IOptions<Endpoints> endpoints)
+        private readonly AppSettings _appSettings;
+
+        public AuthController(IOptions<AppSettings> appSettings)
         {
-            _endpoints = endpoints.Value;
-
+            _appSettings = appSettings.Value;
         }
+
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -34,30 +36,41 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Index(User userModelAdm)
+        public IActionResult Index(LoginRequest loginRequest)
         {
             try
             {
+                Encryption encryption = new Encryption();
 
-                if (!User.Identity.IsAuthenticated)
-                    return Challenge(new AuthenticationProperties() { RedirectUri = "/" });
-
-                using (var client = new HttpClient())
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
-                    var response = await client.GetAsync(_endpoints.ServiceUserAdm + $"Authentication/email/{userModelAdm.email}/password/{userModelAdm.password}");
+                    var query = (from user in bank.User
+                                 where user.isDeleted == false
+                                 && user.login == loginRequest.login                               
+                                 select user).SingleOrDefault();
 
-                    // If Successful
-                    var responseString = await response.Content.ReadAsStringAsync();
-
-                    if (!response.IsSuccessStatusCode)
+                    if (query == null)
                     {
-                        throw new Exception(responseString);
+                        ShowNotification(NotificationType.Error, "Usuário e senha incorretos", 10);
+                        return View();
                     }
 
-                    var model = JsonConvert.DeserializeObject<User>(responseString);
+                    if (!query.isActive)
+                    {
+                        ShowNotification(NotificationType.Error, "Usuário e senha incorretos", 10);
+                        return View();
+                    }
+
+                    string test = encryption.EncryptString("master");
+
+                    if (encryption.EncryptString(loginRequest.password) != query.password)
+                    {
+                        ShowNotification(NotificationType.Error, "Usuário e senha incorretos", 10);
+                        return View();
+                    }
 
                     // User Login
-                    Login(model.userName, model.idUser);
+                    Login(query.userName, query.idUser);
 
                     // Return Success
                     return RedirectToAction("Index", "Home");
@@ -67,6 +80,24 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             {
                 ShowNotification(NotificationType.Error, e.Message);
                 return View();
+            }
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult GitHubLogin()
+        {
+            try
+            {
+                if (!User.Identity.IsAuthenticated)
+                    return Challenge(new AuthenticationProperties() { RedirectUri = "/" });
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception ex)
+            {
+                ShowNotification(NotificationType.Error, ex.Message);
+                return View("Index","Auth");
             }
         }
 
@@ -86,7 +117,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         {
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier, idUser.ToString(), ClaimValueTypes.Integer),
-                new Claim("nome", name, ClaimValueTypes.String),
+                new Claim(ClaimTypes.Name, name, ClaimValueTypes.String),
                 new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
             };
 

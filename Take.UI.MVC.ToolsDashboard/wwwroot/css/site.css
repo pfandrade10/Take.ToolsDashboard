@@ -356,3 +356,7 @@ input[type="radio"], input[type="checkbox"] {
 .input-validation-error {
     border-color: #f44336;
 }
+
+.github-login-btn{
+    margin-top:10px;
+}

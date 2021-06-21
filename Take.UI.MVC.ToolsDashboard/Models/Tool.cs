@@ -20,5 +20,7 @@ namespace Take.UI.MVC.ToolsDashboard.Models
         public DateTime dateTimeInclusion { get; set; }
 
         public bool isDeleted { get; set; }
+
+        public bool isActive { get; set; }
     }
 }

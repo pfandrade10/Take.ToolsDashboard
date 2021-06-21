@@ -360,3 +360,9 @@ input[type="radio"], input[type="checkbox"] {
 .github-login-btn{
     margin-top:10px;
 }
+
+.card {
+    margin: 14px;
+    box-shadow: 0px 0px 13px -9px black;
+    border: none;
+}

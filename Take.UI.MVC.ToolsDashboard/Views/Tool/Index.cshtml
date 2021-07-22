@@ -29,7 +29,7 @@
                     <span class="secundary-status last-info">@(item.isActive?"Ativo":"Inativo")</span>
                 </div>
                 <div class="actions">
-                    <a asp-action="Details" asp-route-idTool="@item.idTool"><span style="margin-top:5px" class="fas fa-eye"></span></a>
+                    <a asp-action="Update" asp-route-idTool="@item.idTool"><span style="margin-top:5px" class="fas fa-eye"></span></a>
                     <a asp-action="Delete" asp-route-idTool="@item.idTool"><span style="margin-top:5px" class="fas fa-trash"></span></a>
                 </div>
             </div>

@@ -142,39 +142,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
 
             return RedirectToAction("Index","Tool");
-        }
-
-        [HttpGet]
-        public IActionResult Details(int idTool)
-        {
-            Tool model = new Tool();
-
-            try
-            {
-                using (var bank = ContextFactory.Create(_appSettings.connectionString))
-                {
-                    var query = (from tool in bank.Tool
-                                 where tool.idTool == idTool
-                                 select tool).SingleOrDefault();
-
-                    
-                    if(query == null)
-                    {
-                        ShowNotificationRedirect(NotificationType.Error, $"Ferramenta procurada não existe");
-                        return RedirectToAction("Index", "Tool");
-                    }
-
-                    model = query;
-                }
-            }
-            catch(Exception ex)
-            {
-                ShowNotificationRedirect(NotificationType.Error,$"Erro ao acessar página: {ex.Message}");
-                return RedirectToAction("Index", "Tool");
-            }
-
-            return View(model);
-        }
+        }        
 
         [HttpGet]
         public IActionResult Delete(int idTool)

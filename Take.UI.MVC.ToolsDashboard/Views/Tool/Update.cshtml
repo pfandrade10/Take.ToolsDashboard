@@ -6,20 +6,27 @@
 <form asp-action="Update" method="post" asp-antiforgery="true">
     <input type="hidden" asp-for="idTool" value="@Model.idTool" />
     <div class="form-group">
+        <label>Nome:</label>
         <input asp-for="name" value="@Model.name" type="text" class="form-control" />
     </div>
     <div class="form-group">
-        <input asp-for="description" value="@Model.description" type="text" class="form-control" />
+        <label>Descrição:</label>
+        <textarea asp-for="description" value="@Model.description" type="text" class="form-control"></textarea>
     </div>
     <div class="form-group">
+        <label>Link:</label>
         <input asp-for="link" value="@Model.link" type="text" class="form-control" />
     </div>
     <div class="form-group">
+        <label>URL Base:</label>
         <input asp-for="baseUrl" value="@Model.baseUrl" type="text" class="form-control" />
     </div>
     <div class="form-group">
-        <input asp-for="isActive" value="@Model.link" name="isActiveRadio" type="radio" class="form-control" /> Ativo
-        <input asp-for="isActive" value="@Model.link" name="isActiveRadio" type="radio" class="form-control" /> Inativo
+        <label>Status:</label>
+        <select asp-for="isActive" class="custom-select" name="isActive">
+            <option value="true">Ativo</option>
+            <option value="false">Inativo</option>
+        </select>
     </div>
     <div>
         <button type="submit" class="btn  btn-outline-dark">Salvar</button>

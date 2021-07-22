@@ -56,10 +56,67 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         }
 
         [HttpGet]
+        public IActionResult Update(int idTool)
+        {
+            try
+            {
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
+                {
+                    var query = (from tool in bank.Tool
+                                 where tool.idTool == idTool
+                                 select tool).SingleOrDefault();
+
+                    if(query == null)
+                    {
+                        ShowNotificationRedirect(NotificationType.Error, $"Ferramenta procurada não existe");
+                        return RedirectToAction("Index", "Tool");
+                    }
+
+                    return View(query);
+                }
+            }
+            catch(Exception ex)
+            {
+                ShowNotificationRedirect(NotificationType.Error, $"Erro ao alterar ferramenta: {ex.Message}");
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Update(Tool updateTool)
+        {
+            try
+            {
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
+                {
+                    var query = (from tool in bank.Tool
+                                 where tool.idTool == updateTool.idTool
+                                 select tool).SingleOrDefault();
+
+                    query.description = updateTool.description;
+                    query.link = updateTool.link;
+                    query.baseUrl = updateTool.baseUrl;
+                    query.name = updateTool.name;
+                    query.isActive = updateTool.isActive;
+
+                    bank.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowNotification(NotificationType.Error, $"Erro ao alterar ferramenta: {ex.Message}");
+                return View();
+            }
+
+            return RedirectToAction("Index", "Tool");
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             Tool model = new Tool();      
-
+            
             return View(model);
         }
 
@@ -80,7 +137,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
             catch(Exception ex)
             {
-                ShowNotificationRedirect(NotificationType.Error, $"Erro ao criar ferramenta: {ex.Message}");
+                ShowNotification(NotificationType.Error, $"Erro ao criar ferramenta: {ex.Message}");
                 return View();
             }
 

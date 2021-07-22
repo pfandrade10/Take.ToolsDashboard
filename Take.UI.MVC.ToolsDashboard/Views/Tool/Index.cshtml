@@ -2,14 +2,22 @@
 @{ ViewData["Title"] = "Ferramentas"; }
 
 <form asp-action="Index" method="post" asp-antiforgery="true">
-    <div class="form-group">
-        <input name="searchText" placeholder="Pesquisar" class="form-control" />
-    </div>
-    <div>
-        <button type="submit" class="btn  btn-outline-dark">Pesquisar</button>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-2 col-lg-2">
+            <div class="form-group">
+                <input name="searchText" placeholder="Pesquisar" class="form-control" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+            <button type="submit" class="btn btn-outline-dark">Pesquisar</button>
+        </div>
     </div>
 </form>
-
+<div class="row">
+    <div class="col-md-3">
+        <a style="margin-top: 10px" asp-action="Create" class="btn btn-outline-dark">Adicionar Ferramenta</a>
+    </div>
+</div>
 <div class="card-list">
     <div class="row">
         @foreach (var item in ViewBag.listTools as List<Tool>)
@@ -17,12 +25,12 @@
             <div class="card-item">
                 <div class="infos">
                     <span class="primary">Nome: @item.name</span>
-                    <span class="secundary">base Url: @item.baseUrl</span>
+                    <span class="secundary">Url Base: @item.baseUrl</span>
                     <span class="secundary-status last-info">@(item.isActive?"Ativo":"Inativo")</span>
                 </div>
                 <div class="actions">
-                    <a asp-action="Details" asp-route-idTool="@item.idTool"><span class="fas fa-eye"></span></a>
-                    <a asp-action="Delete" asp-route-idTool="@item.idTool"><span class="fas fa-trash"></span></a>
+                    <a asp-action="Details" asp-route-idTool="@item.idTool"><span style="margin-top:5px" class="fas fa-eye"></span></a>
+                    <a asp-action="Delete" asp-route-idTool="@item.idTool"><span style="margin-top:5px" class="fas fa-trash"></span></a>
                 </div>
             </div>
          }

@@ -36,6 +36,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Index(string searchText)
         {
             Tool model = new Tool();
@@ -52,6 +53,38 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            Tool model = new Tool();      
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Create(Tool tool)
+        {
+            try
+            {
+                
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
+                {
+                    tool.isDeleted = false;
+                    tool.dateTimeInclusion = DateTime.Now;
+                    bank.Tool.Add(tool);
+                    bank.SaveChanges();
+                } 
+            }
+            catch(Exception ex)
+            {
+                ShowNotificationRedirect(NotificationType.Error, $"Erro ao criar ferramenta: {ex.Message}");
+                return View();
+            }
+
+            return RedirectToAction("Index","Tool");
         }
 
         [HttpGet]
@@ -86,22 +119,40 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             return View(model);
         }
 
-
         [HttpGet]
+        public IActionResult Delete(int idTool)
+        {
+            using (var bank = ContextFactory.Create(_appSettings.connectionString))
+            {
+                var query = (from tool in bank.Tool
+                             where tool.idTool == idTool
+                             select tool).SingleOrDefault();
+
+
+                if (query == null)
+                {
+                    ShowNotificationRedirect(NotificationType.Error, $"Ferramenta procurada não existe");
+                    return RedirectToAction("Index", "Tool");
+                }
+
+                return View(query);
+            }
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Excluir(int idTool)
         {
-            Tool model = new Tool();
-
+            Tool query = new Tool();
             try
             {
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
-                    var query = (from tool in bank.Tool
+                    query = (from tool in bank.Tool
                                  where tool.idTool == idTool
                                  select tool).SingleOrDefault();
 
-
-                    if (query != null)
+                    if (query == null)
                     {
                         ShowNotificationRedirect(NotificationType.Error, $"Ferramenta procurada não existe");
                         return RedirectToAction("Index", "Tool");
@@ -113,11 +164,11 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
             catch (Exception ex)
             {
-                ShowNotificationRedirect(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
-                return RedirectToAction("Index", "Tool");
+                ShowNotification(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
+                return View(query);
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Tool");
         }
     }
 }

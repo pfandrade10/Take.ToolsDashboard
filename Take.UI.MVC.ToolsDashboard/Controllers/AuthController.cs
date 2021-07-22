@@ -55,17 +55,15 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                         return View();
                     }
 
-                    if (!query.isActive)
+                    if (encryption.EncryptString(loginRequest.password) != query.password)
                     {
                         ShowNotification(NotificationType.Error, "Usuário e senha incorretos", 10);
                         return View();
                     }
 
-                    string test = encryption.EncryptString("master");
-
-                    if (encryption.EncryptString(loginRequest.password) != query.password)
+                    if (!query.isActive)
                     {
-                        ShowNotification(NotificationType.Error, "Usuário e senha incorretos", 10);
+                        ShowNotification(NotificationType.Error, "Este usuário está desativado, favor comunicar com o administrador", 10);
                         return View();
                     }
 

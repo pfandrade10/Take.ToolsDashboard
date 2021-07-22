@@ -1,6 +1,33 @@
 ﻿@model Take.UI.MVC.ToolsDashboard.Models.User
 @{ ViewData["Title"] = "Usuários"; }
-
+<form asp-action="Index" method="post" asp-antiforgery="true">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="form-group">
+                <input name="searchText" placeholder="Pesquisar" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-2 col-lg-2">
+            <div class="form-group">
+                <select class="custom-select" name="isActive">
+                    <option value="">Todos</option>
+                    <option value="true">Ativo</option>
+                    <option value="false">Inativo</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-sm-2 col-md-2 col-lg-2">
+            <button type="submit" class="btn btn-outline-dark">Pesquisar</button>
+        </div>
+    </div>
+</form>
+@*<div class="row">
+        <div class="col-md-3">
+            <a style="margin-top: 10px" asp-action="Create" class="btn btn-outline-dark">Adicionar Ferramenta</a>
+        </div>
+    </div>*@
 <div class="card-list">
     <div class="row">
         @foreach (var item in ViewBag.listUser as List<Take.UI.MVC.ToolsDashboard.Models.User>)
@@ -12,10 +39,10 @@
                     <span class="secundary-status last-info">@(item.isActive?"Ativo":"Inativo")</span>
                 </div>
                 <div class="actions">
-                    <a asp-action="Details" asp-route-id="@item.idUser"><span class="fas fa-user"></span></a>
+                    <a asp-action="Details" asp-route-id="@item.idUser"><span style="margin-top:5px" class="fas fa-user"></span></a>
                 </div>
             </div>
-         }
+        }
     </div>
 </div>
 

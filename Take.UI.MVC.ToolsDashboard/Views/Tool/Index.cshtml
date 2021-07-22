@@ -10,26 +10,25 @@
     </div>
 </form>
 
-<div class="row">
-    @foreach (var item in ViewBag.listTools as List<Tool>)
-    {
-
-        <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-
-            <div class="card-body">
-                <p>Nome: @item.name</p>
-                <p>Descrição: @item.description</p>
-                <p>Link: @item.link</p>
-                <p>@(item.isActive?"Ativo":"Inativo")</p>
+<div class="card-list">
+    <div class="row">
+        @foreach (var item in ViewBag.listTools as List<Tool>)
+        {
+            <div class="card-item">
+                <div class="infos">
+                    <span class="primary">Nome: @item.name</span>
+                    <span class="secundary">base Url: @item.baseUrl</span>
+                    <span class="secundary-status last-info">@(item.isActive?"Ativo":"Inativo")</span>
+                </div>
+                <div class="actions">
+                    <a asp-action="Details" asp-route-idTool="@item.idTool"><span class="fas fa-eye"></span></a>
+                    <a asp-action="Delete" asp-route-idTool="@item.idTool"><span class="fas fa-trash"></span></a>
+                </div>
             </div>
-
-            <div class="card-columns">
-                <a asp-action="Details" asp-route-idTool="@item.idTool"><span class="fas fa-eye"></span></a>
-            </div>
-
-        </div>
-    }
+         }
+    </div>
 </div>
+
 
 <div>
     <a asp-action="Index" asp-controller="Home" class="btn btn-outline-dark">

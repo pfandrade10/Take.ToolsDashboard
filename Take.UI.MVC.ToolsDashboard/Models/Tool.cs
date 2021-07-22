@@ -15,6 +15,8 @@ namespace Take.UI.MVC.ToolsDashboard.Models
 
         public string description { get; set; }
 
+        public string baseUrl { get; set; }
+
         public string link { get; set; }
 
         public DateTime dateTimeInclusion { get; set; }

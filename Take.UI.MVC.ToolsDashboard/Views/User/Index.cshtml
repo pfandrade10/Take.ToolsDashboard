@@ -1,56 +1,23 @@
 ﻿@model Take.UI.MVC.ToolsDashboard.Models.User
 @{ ViewData["Title"] = "Usuários"; }
 
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>
-                Detalhes
-            </th>
-            <th>
-                ID Usuário
-            </th>
-            <th>
-                Nome
-            </th>
-            <th>
-                E-mail
-            </th>
-            <th>
-                Usuário
-            </th>
-            <th>
-                Data de inclusão
-            </th>
-        </tr>
-    </thead>
-
-    <tbody>
+<div class="card-list">
+    <div class="row">
         @foreach (var item in ViewBag.listUser as List<Take.UI.MVC.ToolsDashboard.Models.User>)
         {
-            <tr>
-                <td>
+            <div class="card-item">
+                <div class="infos">
+                    <span class="primary">Nome: @item.userName</span>
+                    <span class="secundary">email: @item.email</span>
+                    <span class="secundary-status last-info">@(item.isActive?"Ativo":"Inativo")</span>
+                </div>
+                <div class="actions">
                     <a asp-action="Details" asp-route-id="@item.idUser"><span class="fas fa-user"></span></a>
-                </td>
-                <td>
-                    @item.idUser
-                </td>
-                <td>
-                    @item.userName
-                </td>
-                <td>
-                    @item.email
-                </td>
-                <td>
-                    @item.login
-                </td>
-                <td>
-                    @item.dateTimeInclusion
-                </td>
-            </tr>
+                </div>
+            </div>
          }
-    </tbody>
-</table>
+    </div>
+</div>
 
 <div>
     <a asp-action="Index" asp-controller="Home" class="btn btn-outline-dark">

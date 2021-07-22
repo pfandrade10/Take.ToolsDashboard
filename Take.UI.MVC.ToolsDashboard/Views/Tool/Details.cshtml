@@ -58,6 +58,30 @@
             <tr>
                 <th>
                     <div class="col-md-12 col-8">
+                        <label>Base Url</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @Model.baseUrl
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
+                        <label>Situação</label>
+                    </div>
+                </th>
+                <td>
+                    <div class="col-md-12 col-8">
+                        @(Model.isActive?"Ativo":"Inativo")
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div class="col-md-12 col-8">
                         <label>Data Inclusão</label>
                     </div>
                 </th>

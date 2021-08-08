@@ -51,7 +51,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
                     if (query == null)
                     {
-                        ShowNotification(NotificationType.Error, "Usuário e senha incorretos", 10);
+                        ShowNotification(NotificationType.Error, "Usuário não existe", 10);
                         return View();
                     }
 

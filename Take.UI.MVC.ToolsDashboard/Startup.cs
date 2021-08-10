@@ -35,11 +35,7 @@ namespace Take.UI.MVC.ToolsDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
-
-            var builder = new ConfigurationBuilder().SetBasePath(Environment.ContentRootPath)
-                .AddJsonFile($"appsettings." + Environment.EnvironmentName + ".json", optional: true);
 
             services.Configure<AppSettings>(appSettings =>
             {
@@ -57,6 +53,13 @@ namespace Take.UI.MVC.ToolsDashboard
                 .AddCookie()
                 .AddOAuth("GitHub", options =>
                 {
+                    options.CorrelationCookie = new CookieBuilder()
+                    {
+                        HttpOnly = false,
+                        SameSite = SameSiteMode.None,
+                        SecurePolicy = CookieSecurePolicy.None,
+                        Expiration = TimeSpan.FromMinutes(10)
+                    };
                     options.ClientId = Configuration["GitHub:ClientId"];
                     options.ClientSecret = Configuration["GitHub:ClientSecret"];
                     options.CallbackPath = new PathString("/github-oauth");
@@ -102,17 +105,19 @@ namespace Take.UI.MVC.ToolsDashboard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UsePathBase(new PathString("/toolsdashboard"));
+
             if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
-            app.UseHttpsRedirection();         
+            //app.UseHttpsRedirection();         
 
             app.UseStaticFiles();
 

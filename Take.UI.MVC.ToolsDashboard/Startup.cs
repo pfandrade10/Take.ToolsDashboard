@@ -32,6 +32,21 @@ namespace Take.UI.MVC.ToolsDashboard
 
         public IWebHostEnvironment Environment { get; private set; }
 
+        private void CheckSameSite(HttpContext httpContext, CookieOptions options)
+        {
+            if (options.SameSite == SameSiteMode.None)
+            {
+                var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+                // TODO: Use your User Agent library of choice here.
+                if (userAgent.Length >0)
+                {
+                    // For .NET Core < 3.1 set SameSite = (SameSiteMode)(-1)
+                    options.SameSite = SameSiteMode.Unspecified;
+                }
+            }
+        }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -42,6 +57,19 @@ namespace Take.UI.MVC.ToolsDashboard
                 appSettings.githubKey = Configuration[$"GitHub:ClientId"];
                 appSettings.githubSecretKey = Configuration[$"GitHub:ClientSecret"];
                 appSettings.connectionString = Configuration[$"ConnectionString"];
+            });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+                options.OnAppendCookie = cookieContext =>
+                    CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
+                options.OnDeleteCookie = cookieContext =>
+                    CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
+                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+                options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.None;
+                options.ConsentCookie.SameSite = SameSiteMode.Unspecified;
+                
             });
 
             services.AddAuthentication(options =>
@@ -105,7 +133,7 @@ namespace Take.UI.MVC.ToolsDashboard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UsePathBase(new PathString("/toolsdashboard"));
+            //app.UsePathBase(new PathString("/toolsdashboard"));
 
             if (env.EnvironmentName == "Development")
             {

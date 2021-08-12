@@ -128,7 +128,7 @@
         var notification = TempData["NotificationSuccessRedirect"] as string;
 
         <script type="text/javascript">
-            @Html.Raw("ShowNotification('success', '" + notification + "'," +10+");");
+            @Html.Raw("ShowNotification('success', '" + notification + "'," +6+");");
         </script>
     }
     else if (TempData["NotificationErrorRedirect"] != null)
@@ -136,7 +136,7 @@
         var notification = TempData["NotificationErrorRedirect"] as string;
 
         <script type="text/javascript">
-            @Html.Raw("ShowNotification('error', '" + notification + "'," + 10 + ");");
+            @Html.Raw("ShowNotification('error', '" + notification + "'," + 6 + ");");
         </script>
     }
 

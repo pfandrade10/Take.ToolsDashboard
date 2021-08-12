@@ -90,6 +90,8 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Update(User updateUser)
         {
+            Encryption encryption = new Encryption();
+
             try
             {
                 if (!isMaster)
@@ -106,7 +108,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
                     query.email = updateUser.email;
                     query.login = updateUser.login;
-                    query.password = updateUser.password;
+                    query.password = encryption.EncryptString(updateUser.password);
                     query.userName = updateUser.userName;
                     query.isActive = updateUser.isActive;
 
@@ -135,12 +137,15 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(User user)
         {
+            Encryption encryption = new Encryption();
+
             try
             {
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     user.isDeleted = false;
                     user.dateTimeInclusion = DateTime.Now;
+                    user.password = encryption.EncryptString(user.password);
                     bank.User.Add(user);
                     bank.SaveChanges();
                 }

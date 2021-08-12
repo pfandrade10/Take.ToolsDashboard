@@ -133,7 +133,7 @@ namespace Take.UI.MVC.ToolsDashboard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UsePathBase(new PathString("/toolsdashboard"));
+            app.UsePathBase(new PathString("/toolsdashboard"));
 
             if (env.EnvironmentName == "Development")
             {

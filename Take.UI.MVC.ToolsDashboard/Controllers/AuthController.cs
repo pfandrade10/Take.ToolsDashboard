@@ -88,7 +88,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             try
             {
                 if (!User.Identity.IsAuthenticated)
-                    return Challenge(new AuthenticationProperties() { RedirectUri = "/" });
+                    return Challenge(new AuthenticationProperties() { RedirectUri = "/toolsdashboard" });
 
                 return RedirectToAction("Index", "Home");
             }

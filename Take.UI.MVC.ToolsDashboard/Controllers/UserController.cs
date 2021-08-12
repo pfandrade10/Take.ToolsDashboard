@@ -119,6 +119,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 return View();
             }
 
+            ShowNotificationRedirect(NotificationType.Success, $"Usuário alterado com sucesso");
             return RedirectToAction("Index", "User");
         }
 
@@ -150,6 +151,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 return View();
             }
 
+            ShowNotificationRedirect(NotificationType.Success, $"Usuário criado com sucesso");
             return RedirectToAction("Index", "User");
         }
 
@@ -209,6 +211,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 return View(query);
             }
 
+            ShowNotificationRedirect(NotificationType.Success, $"Usuário removido com sucesso");
             return RedirectToAction("Index", "User");
         }
     }

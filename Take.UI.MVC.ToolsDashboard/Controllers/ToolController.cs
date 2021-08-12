@@ -115,6 +115,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 return View();
             }
 
+            ShowNotificationRedirect(NotificationType.Success, $"Ferramenta alterada com sucesso");
             return RedirectToAction("Index", "Tool");
         }
 
@@ -147,6 +148,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 return View();
             }
 
+            ShowNotificationRedirect(NotificationType.Success, $"Ferramenta criada com sucesso");
             return RedirectToAction("Index","Tool");
         }        
 
@@ -204,6 +206,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 return View(query);
             }
 
+            ShowNotificationRedirect(NotificationType.Success, $"Ferramenta removida com sucesso");
             return RedirectToAction("Index", "Tool");
         }
     }

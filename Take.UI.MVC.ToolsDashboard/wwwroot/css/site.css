@@ -197,7 +197,7 @@ input[type="radio"], input[type="checkbox"] {
     }
 
 .container {
-    width: calc(100% - 215px);
+    width: calc(100% - 210px);
     max-width: 100%;
     padding-right: 15px;
     padding-left: 15px;

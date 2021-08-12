@@ -437,3 +437,11 @@ input[type="radio"], input[type="checkbox"] {
 
 
 /*********************************END CARD LIST********************************************/
+.white-body {
+    background-color: white;
+    box-shadow: 0px 2px 6px #00000029;
+    padding: 20px 15px;
+    display: block;
+    width: 100%;
+    border-radius: 2px;
+}

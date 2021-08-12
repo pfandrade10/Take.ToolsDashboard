@@ -57,52 +57,140 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
 
             return View(model);
-        }
+        }    
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Update(int idUser)
         {
-            Models.User model = new Models.User();
-
             try
             {
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from user in bank.User
-                                 where user.idUser == id
+                                 where user.idUser == idUser
                                  select user).SingleOrDefault();
 
-                    model = query;
+                    if (query == null)
+                    {
+                        ShowNotificationRedirect(NotificationType.Error, $"Usuário procurado não existe");
+                        return RedirectToAction("Index", "User");
+                    }
+
+                    return View(query);
                 }
             }
             catch (Exception ex)
             {
-                ShowNotificationRedirect(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
-                return RedirectToAction("Index", "User");
+                ShowNotificationRedirect(NotificationType.Error, $"Erro ao alterar Usuário: {ex.Message}");
+                return View();
             }
-
-            return View(model);
         }
 
-
-        [HttpGet]
-        public IActionResult Excluir(int id)
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Update(User updateUser)
         {
-            Models.User model = new Models.User();
-
             try
             {
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from user in bank.User
-                                 where user.idUser == id
+                                 where user.idUser == updateUser.idUser
+                                 select user).SingleOrDefault();
+
+                    query.email = updateUser.email;
+                    query.login = updateUser.login;
+                    query.password = updateUser.password;
+                    query.userName = updateUser.userName;
+                    query.isActive = updateUser.isActive;
+
+                    bank.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowNotification(NotificationType.Error, $"Erro ao alterar Usuário: {ex.Message}");
+                return View();
+            }
+
+            return RedirectToAction("Index", "User");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            User model = new User();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Create(User user)
+        {
+            try
+            {
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
+                {
+                    user.isDeleted = false;
+                    user.dateTimeInclusion = DateTime.Now;
+                    bank.User.Add(user);
+                    bank.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowNotification(NotificationType.Error, $"Erro ao criar usuário: {ex.Message}");
+                return View();
+            }
+
+            return RedirectToAction("Index", "User");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int idUser)
+        {
+            if (!isMaster)
+            {
+                ShowNotificationRedirect(NotificationType.Error, $"Você não tem permissão para realizar esta ação");
+                return RedirectToAction("Index", "User");
+            }
+
+            using (var bank = ContextFactory.Create(_appSettings.connectionString))
+            {
+                var query = (from user in bank.User
+                             where user.idUser == idUser
+                             select user).SingleOrDefault();
+
+
+                if (query == null)
+                {
+                    ShowNotificationRedirect(NotificationType.Error, $"O usuário procurado não existe");
+                    return RedirectToAction("Index", "User");
+                }
+
+                return View(query);
+            }
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Excluir(int idUser)
+        {
+            User query = new User();
+            try
+            {
+                using (var bank = ContextFactory.Create(_appSettings.connectionString))
+                {
+                    query = (from user in bank.User
+                                 where user.idUser == idUser
                                  select user).SingleOrDefault();
 
 
                     if (query == null)
                     {
-                        ShowNotification(NotificationType.Error, $"Usuário a ser deletado não exite",1);
-                        return View(model);
+                        ShowNotificationRedirect(NotificationType.Error, $"O usuário procurado não existe");
+                        return RedirectToAction("Index", "Tool");
                     }
 
                     query.isDeleted = true;
@@ -111,11 +199,11 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             }
             catch (Exception ex)
             {
-                ShowNotificationRedirect(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
-                return RedirectToAction("Index", "User");
+                ShowNotification(NotificationType.Error, $"Erro ao acessar página: {ex.Message}");
+                return View(query);
             }
 
-            return View(model);
+            return RedirectToAction("Index", "User");
         }
     }
 }

@@ -1,42 +1,56 @@
 ﻿@model Take.UI.MVC.ToolsDashboard.Models.Tool
-@{
-    ViewData["Title"] = $"Detalhes da Frramenta #{Model.name}";
-}
+@{ ViewData["Title"] = $"Adicionar Frramenta #{Model.name}"; }
+<div class="white-body">
+    <form asp-action="Create" method="post" asp-antiforgery="true">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input asp-for="name" type="text" placeholder="nome" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Link:</label>
+                    <input asp-for="link" type="text" placeholder="Link" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>URL Base:</label>
+                    <input asp-for="baseUrl" type="text" placeholder="Url Base" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select asp-for="isActive" class="custom-select" name="isActive">
+                        <option value="true">Ativo</option>
+                        <option value="false">Inativo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Descrição:</label>
+                    <textarea asp-for="description" type="text" placeholder="descrição" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>      
+        <div>
+            <button type="submit" class="btn  btn-outline-dark">Salvar</button>
+        </div>
+    </form>
+    <br />
 
-<form asp-action="Create" method="post" asp-antiforgery="true">
-    <div class="form-group">
-        <label>Nome:</label>
-        <input asp-for="name" type="text" placeholder="nome" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Descrição:</label>
-        <textarea asp-for="description" type="text" placeholder="descrição" class="form-control"></textarea>
-    </div>
-    <div class="form-group">
-        <label>Link:</label>
-        <input asp-for="link" type="text" placeholder="Link" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>URL Base:</label>
-        <input asp-for="baseUrl" type="text" placeholder="Url Base" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Status:</label>
-        <select asp-for="isActive" class="custom-select" name="isActive">
-            <option value="true">Ativo</option>
-            <option value="false">Inativo</option>
-        </select>
-    </div>
     <div>
-        <button type="submit" class="btn  btn-outline-dark">Salvar</button>
+        <a asp-action="Index" asp-controller="Tool" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
     </div>
-</form>
-<br />
-
-<div>
-    <a asp-action="Index" asp-controller="Tool" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
 </div>
-
 @section Scripts{
     <script type="text/javascript">
         //Setando menu como ativo

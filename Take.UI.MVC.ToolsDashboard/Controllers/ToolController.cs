@@ -147,6 +147,11 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         [HttpGet]
         public IActionResult Delete(int idTool)
         {
+            if (!isMaster)
+            {
+                ShowNotificationRedirect(NotificationType.Error, $"Você não tem permissão para realizar esta ação");
+                return RedirectToAction("Index", "Tool");
+            }
             using (var bank = ContextFactory.Create(_appSettings.connectionString))
             {
                 var query = (from tool in bank.Tool

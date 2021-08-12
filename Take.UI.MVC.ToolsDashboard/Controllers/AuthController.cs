@@ -68,7 +68,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                     }
 
                     // User Login
-                    Login(query.userName, query.idUser);
+                    Login(query.userName, query.idUser, query.isMaster);
 
                     // Return Success
                     return RedirectToAction("Index", "Home");
@@ -111,11 +111,12 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         #endregion
 
         #region [ Metodos Privados ]
-        private async void Login(string name, int idUser)
+        private async void Login(string name, int idUser, bool isMaster)
         {
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier, idUser.ToString(), ClaimValueTypes.Integer),
                 new Claim(ClaimTypes.Name, name, ClaimValueTypes.String),
+                new Claim(ClaimTypes.Role, isMaster.ToString(), ClaimValueTypes.String),
                 new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"),
             };
 

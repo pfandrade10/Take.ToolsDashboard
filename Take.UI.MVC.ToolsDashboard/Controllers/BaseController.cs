@@ -25,6 +25,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
         public int idUserADM { get; set; }
 
+        public bool isMaster { get; set; }
 
         public string userNameADM { get; set; }
 
@@ -33,6 +34,8 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                isMaster = false;
+
                 ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
 
                 Claim claimNameIdentifier = claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier);
@@ -41,7 +44,11 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                 Claim claimName = null;
 
                 if (claimsIdentity?.FindFirst("urn:github:login") == null)
+                {
                     claimName = claimsIdentity?.FindFirst(ClaimTypes.Name);
+                    isMaster = Convert.ToBoolean(claimsIdentity?.FindFirst(ClaimTypes.Role).Value);
+                }
+                    
                 else
                     claimName = claimsIdentity?.FindFirst("urn:github:login");
 

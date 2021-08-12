@@ -16,15 +16,6 @@ body {
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
 
 .shadow-box {
     width: 100%;
@@ -437,6 +428,8 @@ input[type="radio"], input[type="checkbox"] {
 
 
 /*********************************END CARD LIST********************************************/
+
+/*********************************LAYOUT********************************************/
 .white-body {
     background-color: white;
     box-shadow: 0px 2px 6px #00000029;
@@ -444,4 +437,14 @@ input[type="radio"], input[type="checkbox"] {
     display: block;
     width: 100%;
     border-radius: 2px;
+}
+
+.container-body {
+    padding: 76px 20px 20px 76px;
+    height: calc(100vh);
+}
+
+.container-body-secundary-header {
+    padding: 210px 20px 20px 76px;
+    height: calc(100vh);
 }

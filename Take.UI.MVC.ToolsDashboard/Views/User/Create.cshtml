@@ -1,62 +1,65 @@
 ﻿@model Take.UI.MVC.ToolsDashboard.Models.User
 @{ ViewData["Title"] = $"Adicionar Usuário #{Model.userName}"; }
-<div class="white-body">
-    <form asp-action="Create" method="post" asp-antiforgery="true"> 
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label>Nome:</label>
-                    <input asp-for="userName" type="text" placeholder="nome" class="form-control" />
+
+
+    <div class="white-body">
+        <form asp-action="Create" method="post" asp-antiforgery="true">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input asp-for="userName" type="text" placeholder="nome" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input asp-for="email" type="text" placeholder="email" class="form-control" />
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label>Email:</label>
-                    <input asp-for="email" type="text" placeholder="email" class="form-control" />
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Login:</label>
+                        <input asp-for="login" type="text" placeholder="login" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input asp-for="password" type="password" placeholder="senha" class="form-control" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label>Login:</label>
-                    <input asp-for="login" type="text" placeholder="login" class="form-control" />
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label>Status:</label>
+                        <select asp-for="isActive" class="custom-select" name="isActive">
+                            <option value="true">Ativo</option>
+                            <option value="false">Inativo</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label>Senha:</label>
-                    <input asp-for="password" type="password" placeholder="senha" class="form-control" />
-                </div>
+            <div>
+                <button type="submit" class="btn  btn-outline-dark"><span class="fas fa-save"></span> Salvar</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label>Status:</label>
-                    <select asp-for="isActive" class="custom-select" name="isActive">
-                        <option value="true">Ativo</option>
-                        <option value="false">Inativo</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        </form>
+        <br />
+
         <div>
-            <button type="submit" class="btn  btn-outline-dark"><span class="fas fa-save"></span> Salvar</button>
+            <a asp-action="Index" asp-controller="User" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
         </div>
-    </form>
-    <br />
-
-    <div>
-        <a asp-action="Index" asp-controller="User" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
     </div>
-</div>
-@section Scripts{
-    <script type="text/javascript">
-        //Setando menu como ativo
-        SetActiveLink("#link-menu-tool");
 
-    </script>
-}
+    @section Scripts{
+        <script type="text/javascript">
+            //Setando menu como ativo
+            SetActiveLink("#link-menu-tool");
+
+        </script>
+    }
 
 

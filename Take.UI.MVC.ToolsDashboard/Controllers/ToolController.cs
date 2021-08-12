@@ -88,6 +88,12 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         {
             try
             {
+                if (!isMaster)
+                {
+                    ShowNotificationRedirect(NotificationType.Error, $"Você não tem permissão para realizar esta ação");
+                    return RedirectToAction("Update", "Tool", new { idTool = updateTool.idTool });
+                }
+
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from tool in bank.Tool

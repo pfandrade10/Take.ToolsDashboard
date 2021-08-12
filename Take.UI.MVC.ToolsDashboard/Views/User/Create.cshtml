@@ -1,32 +1,48 @@
 ﻿@model Take.UI.MVC.ToolsDashboard.Models.User
 @{ ViewData["Title"] = $"Adicionar Usuário #{Model.userName}"; }
 <div class="white-body">
-    <form asp-action="Create" method="post" asp-antiforgery="true">
-        <div class="form-group">
-            <label>Nome:</label>
-            <input asp-for="userName" type="text" placeholder="nome" class="form-control" />
+    <form asp-action="Create" method="post" asp-antiforgery="true"> 
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input asp-for="userName" type="text" placeholder="nome" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input asp-for="email" type="text" placeholder="email" class="form-control" />
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Email:</label>
-            <input asp-for="email" type="text" placeholder="email" class="form-control" />
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Login:</label>
+                    <input asp-for="login" type="text" placeholder="login" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input asp-for="password" type="password" placeholder="senha" class="form-control" />
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Login:</label>
-            <input asp-for="login" type="text" placeholder="login" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Senha:</label>
-            <input asp-for="password" type="password" placeholder="senha" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Status:</label>
-            <select asp-for="isActive" class="custom-select" name="isActive">
-                <option value="true">Ativo</option>
-                <option value="false">Inativo</option>
-            </select>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select asp-for="isActive" class="custom-select" name="isActive">
+                        <option value="true">Ativo</option>
+                        <option value="false">Inativo</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div>
-            <button type="submit" class="btn  btn-outline-dark">Salvar</button>
+            <button type="submit" class="btn  btn-outline-dark"><span class="fas fa-save"></span> Salvar</button>
         </div>
     </form>
     <br />

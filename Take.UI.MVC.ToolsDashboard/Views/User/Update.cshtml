@@ -3,37 +3,53 @@
 <div class="white-body">
     <form asp-action="Update" method="post" asp-antiforgery="true">
         <input type="hidden" asp-for="idUser" value="@Model.idUser" />
-        <div class="form-group">
-            <label>Nome:</label>
-            <input asp-for="userName" value="@Model.userName" type="text" placeholder="nome" class="form-control" />
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input asp-for="userName" value="@Model.userName" type="text" placeholder="nome" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input asp-for="email" value="@Model.email" type="text" placeholder="email" class="form-control" />
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Email:</label>
-            <input asp-for="email" value="@Model.email" type="text" placeholder="email" class="form-control"/>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Login:</label>
+                    <input asp-for="login" value="@Model.login" type="text" placeholder="login" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input asp-for="password" value="@Model.password" type="password" placeholder="senha" class="form-control" />
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Login:</label>
-            <input asp-for="login"  value="@Model.login" type="text" placeholder="login" class="form-control" />
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select asp-for="isActive" class="custom-select" name="isActive">
+                        <option value="true">Ativo</option>
+                        <option value="false">Inativo</option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Senha:</label>
-            <input asp-for="password" value="@Model.password" type="password" placeholder="senha" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Status:</label>
-            <select asp-for="isActive" class="custom-select" name="isActive">
-                <option value="true">Ativo</option>
-                <option value="false">Inativo</option>
-            </select>
-        </div>       
         <div>
-            <button type="submit" class="btn  btn-outline-dark">Salvar</button>
+            <button type="submit" class="btn  btn-outline-dark"><span class="fas fa-save"></span> Salvar</button>
         </div>
     </form>
     <br />
 
     <div>
-        <a asp-action="Index" asp-controller="Tool" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
+        <a asp-action="Index" asp-controller="User" role="button" class="btn btn-outline-dark"><span class="fas fa-arrow-left"></span> Voltar</a>
     </div>
 </div>
 @section Scripts{

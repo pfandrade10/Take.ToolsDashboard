@@ -94,6 +94,18 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                     return RedirectToAction("Update", "Tool", new { idTool = updateTool.idTool });
                 }
 
+                if (string.IsNullOrEmpty(updateTool.name))
+                {
+                    ShowNotification(NotificationType.Error, $"O nome é obrigatório");
+                    return View(updateTool);
+                }
+
+                if (string.IsNullOrEmpty(updateTool.link))
+                {
+                    ShowNotification(NotificationType.Error, $"O link de acesso da ferramenta é Obrigatorio");
+                    return View(updateTool);
+                }
+
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from tool in bank.Tool
@@ -133,7 +145,18 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
         {
             try
             {
-                
+                if (string.IsNullOrEmpty(tool.name))
+                {
+                    ShowNotification(NotificationType.Error, $"O nome é obrigatório");
+                    return View(tool);
+                }
+
+                if (string.IsNullOrEmpty(tool.link))
+                {
+                    ShowNotification(NotificationType.Error, $"O link de acesso da ferramenta é Obrigatorio");
+                    return View(tool);
+                }
+
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     tool.isDeleted = false;
@@ -145,7 +168,7 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
             catch(Exception ex)
             {
                 ShowNotification(NotificationType.Error, $"Erro ao criar ferramenta: {ex.Message}");
-                return View();
+                return View(tool);
             }
 
             ShowNotificationRedirect(NotificationType.Success, $"Ferramenta criada com sucesso");

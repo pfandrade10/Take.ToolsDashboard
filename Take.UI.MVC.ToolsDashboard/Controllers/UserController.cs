@@ -100,6 +100,27 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
                     return RedirectToAction("Update", "User", new { idUser = updateUser.idUser });
                 }
 
+                if (string.IsNullOrEmpty(updateUser.userName))
+                {
+                    ShowNotification(NotificationType.Error, $"O nome é obrigatório");
+                    return View(updateUser);
+                }
+                if (string.IsNullOrEmpty(updateUser.email))
+                {
+                    ShowNotification(NotificationType.Error, $"O email é Obrigatorio");
+                    return View(updateUser);
+                }
+                if (string.IsNullOrEmpty(updateUser.login))
+                {
+                    ShowNotification(NotificationType.Error, $"O login é Obrigatorio");
+                    return View(updateUser);
+                }
+                if (string.IsNullOrEmpty(updateUser.password))
+                {
+                    ShowNotification(NotificationType.Error, $"A senha é Obrigatoria");
+                    return View(updateUser);
+                }
+
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     var query = (from user in bank.User
@@ -141,6 +162,27 @@ namespace Take.UI.MVC.ToolsDashboard.Controllers
 
             try
             {
+                if (string.IsNullOrEmpty(user.userName))
+                {
+                    ShowNotification(NotificationType.Error, $"O nome é obrigatório");
+                    return View(user);
+                }
+                if (string.IsNullOrEmpty(user.email))
+                {
+                    ShowNotification(NotificationType.Error, $"O email é Obrigatorio");
+                    return View(user);
+                }
+                if (string.IsNullOrEmpty(user.login))
+                {
+                    ShowNotification(NotificationType.Error, $"O login é Obrigatorio");
+                    return View(user);
+                }
+                if (string.IsNullOrEmpty(user.password))
+                {
+                    ShowNotification(NotificationType.Error, $"A senha é Obrigatoria");
+                    return View(user);
+                }
+
                 using (var bank = ContextFactory.Create(_appSettings.connectionString))
                 {
                     user.isDeleted = false;
